@@ -29,32 +29,43 @@ const Slider = () => {
   }, []);
 
   const nextIdxHandler = () => {
-    currentIDX < cards.length - maxSlideNumber
-      ? setCurrentIDX(currentIDX + maxSlideNumber)
-      : setCurrentIDX(0);
-    console.log("prev >>>", currentIDX);
+    if (currentIDX < cards.length - maxSlideNumber) {
+      setCurrentIDX(currentIDX + maxSlideNumber);
+    } else if (currentIDX + maxSlideNumber < cards.length) {
+      setCurrentIDX(currentIDX + 1);
+    } else {
+      setCurrentIDX(0);
+    }
   };
 
   const prevIdxHandler = () => {
-    currentIDX > 0
-      ? setCurrentIDX(currentIDX - maxSlideNumber)
-      : setCurrentIDX(cards.length - 1);
+    if (currentIDX - maxSlideNumber >= 0) {
+      setCurrentIDX(currentIDX - maxSlideNumber);
+    } else if (currentIDX - 1 >= 0) {
+      setCurrentIDX(currentIDX - 1);
+    } else {
+      setCurrentIDX(cards.length - maxSlideNumber);
+    }
+
+    console.log("prev >>>", currentIDX);
   };
 
   const slicedCards = cards.slice(currentIDX, maxSlideNumber + currentIDX);
 
   return (
     <div className="slider">
-      <div className="prev" onClick={prevIdxHandler}>
-        Prev
-      </div>
-      <div className="container" ref={ref}>
-        {slicedCards?.map((card, i) => (
-          <CatCard item={card} key={i} />
-        ))}
-      </div>
-      <div className="next" onClick={nextIdxHandler}>
-        Next
+      <div className="container">
+        <button className="prev" onClick={prevIdxHandler}>
+          Prev
+        </button>
+        <div className="slides" ref={ref}>
+          {slicedCards?.map((card, i) => (
+            <CatCard item={card} key={i} />
+          ))}
+        </div>
+        <button className="next" onClick={nextIdxHandler}>
+          Next
+        </button>
       </div>
     </div>
   );

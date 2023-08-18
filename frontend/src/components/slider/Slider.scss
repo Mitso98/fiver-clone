@@ -1,12 +1,44 @@
 .slider {
+  width: 90vw;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-content: center;
+  margin: 0 auto;
+  position: relative;
 
   .container {
-    width: 75vw;
-    height: 344px;
-    overflow: hidden;
     display: flex;
-    flex-wrap: wrap;
+
+    button {
+      border-radius: 100%;
+      width: 48px;
+      height: 48px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .prev {
+      right: 88%;
+    }
+
+    .next {
+      left: 88%;
+    }
+
+    .slides {
+      display: flex;
+      justify-content: center;
+      width: 75vw;
+      height: 344px;
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.5s ease-in-out; /* Add this line for transition */
+    }
   }
 }

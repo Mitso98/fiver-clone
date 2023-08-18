@@ -47,12 +47,7 @@ export const cards = [
     desc: "Color you dreams",
     img: "https://images.pexels.com/photos/15032623/pexels-photo-15032623.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
   },
-  {
-    id: 8,
-    title: "Illustration",
-    desc: "Color you dreams",
-    img: "https://images.pexels.com/photos/15032623/pexels-photo-15032623.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-  },
+
 ];
 
 export const projects = [
