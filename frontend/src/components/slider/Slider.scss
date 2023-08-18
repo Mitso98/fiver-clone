@@ -1,0 +1,12 @@
+.slider {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 75vw;
+    height: 344px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

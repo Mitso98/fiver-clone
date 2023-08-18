@@ -4,9 +4,9 @@
   align-items: center;
   background-color: #013914;
   color: white;
-  transition: 0.5s all ease;
   position: sticky;
   top: 0;
+  transition: 0.2s all ease;
 
   &.active {
     background-color: white;
@@ -14,7 +14,7 @@
   }
 
   .container {
-    width: 1400px;
+    width: 91vw;
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
@@ -33,6 +33,23 @@
       gap: 24px;
       font-weight: 500;
       font-family: "Montserrat", sans-serif;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+          width: 17px;
+          height: 17px;
+ 
+        }
+        .language {
+          span {
+            color: #013914;
+          }
+        }
+      }
 
       .user {
         display: flex;
@@ -86,8 +103,8 @@
   }
 
   .menu {
-    width: 1400px;
-    padding: 10px;
+    width: 90vw;
+    padding: 1vw;
     display: flex;
     justify-content: space-between;
     font-weight: 300;

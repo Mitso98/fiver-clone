@@ -37,7 +37,10 @@ const Navbar = () => {
         <div className="links">
           <span>Fiverr Business</span>
           <span>Explore</span>
-          <span>English</span>
+          <span className="language">
+            <img src="./src/assets/img/language.png" alt="" />
+            <span>English</span>
+          </span>
           <span>Sign in</span>
           {!currentUser?.isSeller && <span>Become A Seller</span>}
           {!currentUser && <button>Join</button>}
@@ -77,43 +80,42 @@ const Navbar = () => {
         </div>
       </div>
 
-      {active ||
-        (pathname !== "/" && (
-          <>
-            <hr />
-            <div className="menu">
-              <Link to="/" className="link">
-                <span>Graphics & Design</span>
-              </Link>
-              <Link to="/" className="link">
-                <span>Videos & Animation</span>
-              </Link>
-              <Link to="/" className="link">
-                {" "}
-                <span>All Services</span>
-              </Link>
-              <Link to="/" className="link">
-                {" "}
-                <span>Digital Marketing</span>
-              </Link>
-              <Link to="/" className="link">
-                {" "}
-                <span>Music & Audio</span>
-              </Link>
-              <Link to="/" className="link">
-                {" "}
-                <span>Programming & Tech</span>
-              </Link>
-              <Link to="/" className="link">
-                {" "}
-                <span>Business</span>
-              </Link>
-              <Link to="/" className="link">
-                <span>Lifestyle</span>
-              </Link>
-            </div>
-          </>
-        ))}
+      {(active || pathname !== "/") && (
+        <>
+          <hr />
+          <div className="menu">
+            <Link to="/" className="link">
+              <span>Graphics & Design</span>
+            </Link>
+            <Link to="/" className="link">
+              <span>Videos & Animation</span>
+            </Link>
+            <Link to="/" className="link">
+              {" "}
+              <span>All Services</span>
+            </Link>
+            <Link to="/" className="link">
+              {" "}
+              <span>Digital Marketing</span>
+            </Link>
+            <Link to="/" className="link">
+              {" "}
+              <span>Music & Audio</span>
+            </Link>
+            <Link to="/" className="link">
+              {" "}
+              <span>Programming & Tech</span>
+            </Link>
+            <Link to="/" className="link">
+              {" "}
+              <span>Business</span>
+            </Link>
+            <Link to="/" className="link">
+              <span>Lifestyle</span>
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 };
