@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import "./Navbar.scss";
 
 const Navbar = () => {
-
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   const [dropDownMenu, setDropDownMenu] = useState(false);
@@ -50,7 +49,30 @@ const Navbar = () => {
               <path d="M.19 1.272.81.653a.375.375 0 0 1 .53 0L7 6.3 12.66.653a.375.375 0 0 1 .53 0l.62.62a.375.375 0 0 1 0 .53L7.264 8.346a.375.375 0 0 1-.53 0L.19 1.802a.375.375 0 0 1 0-.53Z"></path>
             </svg>
           </span>
-
+          {dropDownMenu && (
+            <div className="business-solutions-menu">
+              <span>
+                <div className="title">Fiverr Pro</div>
+                <div className="content">
+                  Top freelancers and professional business tools for any
+                  project
+                </div>
+              </span>
+              <span>
+                <div className="title">Fiverr Certified</div>
+                <div className="content">
+                  Your own branded marketplace of certified experts
+                </div>
+              </span>
+              <span>
+                <div className="title">Fiverr Enterprise</div>
+                <div className="content">
+                  SaaS to manage your freelance workforce and onboard additional
+                  talent
+                </div>
+              </span>
+            </div>
+          )}
           <span>Explore</span>
 
           <span>
