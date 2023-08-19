@@ -29,11 +29,9 @@ const Slider = () => {
   }, []);
 
   const nextIdxHandler = () => {
-    if (currentIDX < cards.length - maxSlideNumber) {
+    if (currentIDX + maxSlideNumber < cards.length) {
       setCurrentIDX(currentIDX + maxSlideNumber);
-    } else if (currentIDX + maxSlideNumber < cards.length) {
-      setCurrentIDX(currentIDX + 1);
-    } else {
+    }  else {
       setCurrentIDX(0);
     }
   };
@@ -54,6 +52,7 @@ const Slider = () => {
 
   return (
     <div className="slider">
+      <h2>Popular Services</h2>
       <div className="container">
         <button className="prev" onClick={prevIdxHandler}>
           Prev

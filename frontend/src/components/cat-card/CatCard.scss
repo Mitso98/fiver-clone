@@ -1,35 +1,37 @@
 .cat-card {
-  width: 25vw;
-  min-width: 200px;
-  max-width: 252px;
+  width: 20vw;
+  min-width: 250px;
+  max-width: 275px;
   height: 345px;
-  margin: 10px;
   color: white;
   cursor: pointer;
   position: relative;
- 
+  padding: 0 18px;
+  box-sizing: border-box;
 
   img {
     width: 100%;
     height: 345px;
     object-fit: cover;
     border-radius: 4px;
-    transition: opacity .3s ease-in-out;
- 
+
+    &:hover {
+      opacity: 0.85;
+    }
   }
 
   .desc {
     font-weight: 300;
     position: absolute;
     top: 15px;
-    left: 15px;
+    left: 35px;
   }
 
   .title {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 24px;
     position: absolute;
-    left: 15px;
+    left: 35px;
     top: 40px;
   }
 }

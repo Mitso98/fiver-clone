@@ -1,21 +1,27 @@
 .trusted-by {
-  background-color: #fafafa;
+  background-color: #f5f5f5;
+  
   height: 100px;
   display: flex;
   justify-content: center;
-
+  margin-bottom: 15vh;
   .container {
     width: 760px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    color: lightgray;
-    font-weight: 500;
+
 
     img {
       height: 50px;
       object-fit: contain;
+    }
+
+    span{
+      color: #b5b6ba;
+      font-weight: 600;
+      font-size: 18px;
     }
   }
 }
