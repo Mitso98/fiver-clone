@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import "./Navbar.scss";
 
 const Navbar = () => {
+
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   const [dropDownMenu, setDropDownMenu] = useState(false);

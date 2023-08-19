@@ -4,7 +4,8 @@
   flex-direction: column;
   margin: 0 auto;
   margin-bottom: 15vh;
-  h2{
+
+  h2 {
     font-size: 32px;
     color: #404145;
     padding-bottom: 24px;
@@ -14,7 +15,6 @@
   .container {
     width: 100%;
     display: flex;
-    justify-content: space-around;
     position: relative;
 
     button {
@@ -31,17 +31,22 @@
     }
 
     .prev {
-      right: 87vw;
+      right: 97%;
+      @media screen and (max-width: 768px) {
+        right: 90%;
+      }
     }
 
     .next {
-      left: 87vw;
+      left: 95%;
+      @media screen and (max-width: 768px) {
+        left: 80%;
+      }
     }
 
     .slides {
       width: 100%;
       display: flex;
-      justify-content: center;
     }
   }
 }

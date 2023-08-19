@@ -4,21 +4,24 @@ import { cards } from "../../data";
 import "./Slider.scss";
 
 const Slider = () => {
+
   const ref = useRef(null);
 
-  const [width, setWidth] = useState(0);
-  // const [height, setHeight] = useState(0);
+  const [imgWidth, setImgWidth] = useState(0);
+  const [containerWidth, setcontainerWidth] = useState(0);
   const [currentIDX, setCurrentIDX] = useState(0);
+ 
+  // prevent overflow
+  const number = Math.floor(containerWidth / imgWidth);
+  const maxSlideNumber =   number * imgWidth >  containerWidth ? number - 1: number;
 
-  const maxSlideNumber = Math.floor(width / 252);
-
+  console.log("total",containerWidth, imgWidth);
+  
   useLayoutEffect(() => {
-    setWidth(ref.current.clientWidth);
-    // setHeight(ref.current.clientHeight);
+    setcontainerWidth(ref.current.clientWidth);
 
     function handleWindowResize() {
-      setWidth(ref.current.clientWidth);
-      // setHeight(ref.current.clientHeight);
+      setcontainerWidth(ref.current.clientWidth);
     }
 
     window.addEventListener("resize", handleWindowResize);
@@ -44,22 +47,26 @@ const Slider = () => {
     } else {
       setCurrentIDX(cards.length - maxSlideNumber);
     }
-
-    console.log("prev >>>", currentIDX);
   };
+
+  const getImageWidth = (width) => {
+    setImgWidth(width);
+  }
 
   const slicedCards = cards.slice(currentIDX, maxSlideNumber + currentIDX);
 
+  console.log(">>>",imgWidth);
+
   return (
-    <div className="slider">
+    <div className="slider" ref={ref}>
       <h2>Popular Services</h2>
-      <div className="container">
+      <div className="container" >
         <button className="prev" onClick={prevIdxHandler}>
           Prev
         </button>
-        <div className="slides" ref={ref}>
+        <div className="slides" >
           {slicedCards?.map((card, i) => (
-            <CatCard item={card} key={i} />
+            <CatCard item={card} key={i} getImageWidth={getImageWidth} />
           ))}
         </div>
         <button className="next" onClick={nextIdxHandler}>
@@ -69,4 +76,5 @@ const Slider = () => {
     </div>
   );
 };
+
 export default Slider;

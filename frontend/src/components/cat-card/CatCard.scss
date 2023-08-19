@@ -1,9 +1,10 @@
 .cat-card {
   width: 20vw;
-  min-width: 250px;
-  max-width: 275px;
+  min-width: 200px;
+  max-width: 240px;
   height: 345px;
   color: white;
+  box-sizing: border-box;
   cursor: pointer;
   position: relative;
   padding: 0 18px;
