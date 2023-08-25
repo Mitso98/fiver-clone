@@ -1,23 +1,36 @@
+import { useEffect, useRef, useState } from "react";
 import "./Featured.scss";
 
 const Featured = () => {
-  const peopleStyle = {
-    position: "absolute",
-    top: "0px",
-    "z-index": "-5",
+  const imgRef = useRef(null);
+  const [imgIdx, setImgIdx] = useState(0);
+
+  const imageHandler = () => {
+    const imagesPath = [
+      "./src/assets/img/people/christina-2x.jpg",
+      "./src/assets/img/people/colin-2x.jpg",
+      "./src/assets/img/people/jenny-2x.jpg",
+      "./src/assets/img/people/jordan-2x.jpg",
+    ];
+
+    const idx = imgIdx + 1 < imagesPath.length ? imgIdx + 1 : 0;
+
+    imgRef.current.src = imagesPath[idx];
+
+    setImgIdx(idx);
   };
 
-  const peopleImag = {
-    width: "100%",
-  };
+  useEffect(() => {
+    setTimeout(imageHandler, 6000);
+  }, [imgIdx]);
 
   return (
     <div className="featured">
-      <div className="people" style={peopleStyle}>
+      <div className="people">
         <img
-          src="./src/assets/img/people/christina-2x.webp"
+          ref={imgRef}
+          src="./src/assets/img/people/christina-2x.jpg"
           alt=""
-          style={peopleImag}
         />
       </div>
       <div className="container">
@@ -26,18 +39,24 @@ const Featured = () => {
             Find the perfect <i>freelance</i> services for your business
           </h1>
           <div className="search">
-            <div className="searchInput">
-              <img src="./src/assets/img/search.png" alt="" />
-              <input type="text" placeholder="Search for any service..." />
+            <input type="text" placeholder="Search for any service..." />
+            <div className="submit-button-icon">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentFill"
+              >
+                <path d="m15.89 14.653-3.793-3.794a.37.37 0 0 0-.266-.109h-.412A6.499 6.499 0 0 0 6.5 0C2.91 0 0 2.91 0 6.5a6.499 6.499 0 0 0 10.75 4.919v.412c0 .1.04.194.11.266l3.793 3.794a.375.375 0 0 0 .531 0l.707-.707a.375.375 0 0 0 0-.53ZM6.5 11.5c-2.763 0-5-2.238-5-5 0-2.763 2.237-5 5-5 2.762 0 5 2.237 5 5 0 2.762-2.238 5-5 5Z"></path>
+              </svg>
             </div>
-            <button>Search</button>
           </div>
           <div className="popular">
             <span>Popular:</span>
             <button>Web Design</button>
             <button>Wordpress</button>
             <button>Logo Design</button>
-            <button>Web Design</button>
             <button>AI Services</button>
           </div>
         </div>
@@ -45,4 +64,5 @@ const Featured = () => {
     </div>
   );
 };
+
 export default Featured;
