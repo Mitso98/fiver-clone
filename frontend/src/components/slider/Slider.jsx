@@ -4,19 +4,19 @@ import { cards } from "../../data";
 import "./Slider.scss";
 
 const Slider = () => {
-
   const ref = useRef(null);
 
   const [imgWidth, setImgWidth] = useState(0);
   const [containerWidth, setcontainerWidth] = useState(0);
   const [currentIDX, setCurrentIDX] = useState(0);
- 
+
   // prevent overflow
   const number = Math.floor(containerWidth / imgWidth);
-  const maxSlideNumber =   number * imgWidth >  containerWidth ? number - 1: number;
+  const maxSlideNumber =
+    number * imgWidth > containerWidth ? number - 1 : number;
 
-  console.log("total",containerWidth, imgWidth);
-  
+  console.log("total", containerWidth, imgWidth);
+
   useLayoutEffect(() => {
     setcontainerWidth(ref.current.clientWidth);
 
@@ -34,7 +34,7 @@ const Slider = () => {
   const nextIdxHandler = () => {
     if (currentIDX + maxSlideNumber < cards.length) {
       setCurrentIDX(currentIDX + maxSlideNumber);
-    }  else {
+    } else {
       setCurrentIDX(0);
     }
   };
@@ -51,27 +51,29 @@ const Slider = () => {
 
   const getImageWidth = (width) => {
     setImgWidth(width);
-  }
+  };
 
   const slicedCards = cards.slice(currentIDX, maxSlideNumber + currentIDX);
 
-  console.log(">>>",imgWidth);
+  console.log(">>>", imgWidth);
 
   return (
     <div className="slider" ref={ref}>
       <h2>Popular Services</h2>
-      <div className="container" >
-        <button className="prev" onClick={prevIdxHandler}>
-          Prev
-        </button>
-        <div className="slides" >
+      <div className="container">
+        <div className="arrows">
+          <button className="prev" onClick={prevIdxHandler}>
+            Prev
+          </button>
+          <button className="next" onClick={nextIdxHandler}>
+            Next
+          </button>
+        </div>
+        <div className="slides">
           {slicedCards?.map((card, i) => (
             <CatCard item={card} key={i} getImageWidth={getImageWidth} />
           ))}
         </div>
-        <button className="next" onClick={nextIdxHandler}>
-          Next
-        </button>
       </div>
     </div>
   );

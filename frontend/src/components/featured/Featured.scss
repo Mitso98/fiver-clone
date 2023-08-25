@@ -1,19 +1,22 @@
 .featured {
   height: 90vh;
-  display: flex;
-  justify-content: center;
-  background-color: #013914;
+  position: relative;
+  background-color: transparent;
   color: white;
-  
+
   .container {
     width: 90vw;
     display: flex;
     align-items: center;
 
-    .left {
+    .header {
       display: flex;
       flex-direction: column;
       gap: 30px;
+      max-width: 650px;
+      position: absolute;
+      top: 200px;
+      left: 70px;
 
       h1 {
         font-size: 50px;
@@ -79,15 +82,6 @@
             transition: 0.3s ease-in-out;
           }
         }
-      }
-    }
-
-    .right {
-      height: 100%;
-
-      img {
-        height: 100%;
-        object-fit: contain;
       }
     }
   }

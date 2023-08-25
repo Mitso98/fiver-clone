@@ -4,16 +4,19 @@
   flex-direction: column;
   margin: 0 auto;
   margin-bottom: 15vh;
+  justify-content: center;
+  align-items: center;
 
   h2 {
     font-size: 32px;
     color: #404145;
     padding-bottom: 24px;
     padding-left: 19px;
+    align-self: flex-start;
   }
 
   .container {
-    width: 100%;
+    width: fit-content;
     display: flex;
     position: relative;
 
@@ -23,25 +26,25 @@
       height: 48px;
       border: none;
       cursor: pointer;
-      position: absolute;
       z-index: 2;
       top: 50%;
       background-color: white;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+    .arrows {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: absolute;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .prev {
-      right: 97%;
-      @media screen and (max-width: 768px) {
-        right: 90%;
-      }
     }
 
     .next {
-      left: 95%;
-      @media screen and (max-width: 768px) {
-        left: 80%;
-      }
     }
 
     .slides {

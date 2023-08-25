@@ -1,10 +1,27 @@
 import "./Featured.scss";
 
 const Featured = () => {
+  const peopleStyle = {
+    position: "absolute",
+    top: "0px",
+    "z-index": "-5",
+  };
+
+  const peopleImag = {
+    width: "100%",
+  };
+
   return (
     <div className="featured">
+      <div className="people" style={peopleStyle}>
+        <img
+          src="./src/assets/img/people/christina-2x.webp"
+          alt=""
+          style={peopleImag}
+        />
+      </div>
       <div className="container">
-        <div className="left">
+        <div className="header">
           <h1>
             Find the perfect <i>freelance</i> services for your business
           </h1>
@@ -23,9 +40,6 @@ const Featured = () => {
             <button>Web Design</button>
             <button>AI Services</button>
           </div>
-        </div>
-        <div className="right">
-          <img src="./src/assets/img/man.png" alt="" />
         </div>
       </div>
     </div>
