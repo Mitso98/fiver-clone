@@ -39,8 +39,6 @@ const Slider = () => {
   const prevIdxHandler = () => {
     if (currentIDX - maxSlideNumber >= 0) {
       setCurrentIDX(currentIDX - maxSlideNumber);
-    } else if (currentIDX - 1 >= 0) {
-      setCurrentIDX(currentIDX - 1);
     } else {
       setCurrentIDX(cards.length - maxSlideNumber);
     }
@@ -53,15 +51,16 @@ const Slider = () => {
 
   const slicedCards = cards.slice(currentIDX, maxSlideNumber + currentIDX);
   let finalCards = slicedCards;
+
   if (slicedCards.length < maxSlideNumber && maxSlideNumber !== Infinity) {
-    let slicedCardsLength = currentIDX;
+    let currentIdxRef = currentIDX;
+    let slicedCardsLength = slicedCards.length ;
 
-    while (slicedCards.length < maxSlideNumber) {
-      slicedCardsLength--;
-      finalCards = [cards[slicedCardsLength], ...finalCards];
+    while (slicedCardsLength < maxSlideNumber) {
+      slicedCardsLength++;
+      currentIdxRef--;
+      finalCards = [cards[currentIdxRef], ...finalCards];
     }
-
-    console.log("Done", slicedCards.length);
   }
 
   return (
@@ -77,7 +76,7 @@ const Slider = () => {
           </button>
         </div>
         <div className="slides">
-          {slicedCards?.map((card, i) => (
+          {finalCards?.map((card, i) => (
             <CatCard item={card} key={i} getImageWidth={getImageWidth} />
           ))}
         </div>
