@@ -1,27 +1,24 @@
 import CatCard from "../cat-card/CatCard";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { cards } from "../../data";
 import "./Slider.scss";
 
 const Slider = () => {
-  const ref = useRef(null);
+  // const ref = useRef(null);
 
   const [imgWidth, setImgWidth] = useState(0);
-  const [containerWidth, setcontainerWidth] = useState(0);
   const [currentIDX, setCurrentIDX] = useState(0);
-
+  const [windowWidth, setWindowWidth] = useState(0);
   // prevent overflow
-  const number = Math.floor(containerWidth / imgWidth);
+  const number = Math.floor(window.innerWidth / imgWidth);
   const maxSlideNumber =
-    number * imgWidth > containerWidth ? number - 1 : number;
-
-  console.log("total", containerWidth, imgWidth);
+    number * imgWidth > windowWidth * 0.9 ? number - 1 : number;
 
   useLayoutEffect(() => {
-    setcontainerWidth(ref.current.clientWidth);
+    setWindowWidth(window.innerWidth);
 
     function handleWindowResize() {
-      setcontainerWidth(ref.current.clientWidth);
+      setWindowWidth(window.innerWidth);
     }
 
     window.addEventListener("resize", handleWindowResize);
@@ -49,16 +46,26 @@ const Slider = () => {
     }
   };
 
+  // propagate up image width
   const getImageWidth = (width) => {
     setImgWidth(width);
   };
 
   const slicedCards = cards.slice(currentIDX, maxSlideNumber + currentIDX);
+  let finalCards = slicedCards;
+  if (slicedCards.length < maxSlideNumber && maxSlideNumber !== Infinity) {
+    let slicedCardsLength = currentIDX;
 
-  console.log(">>>", imgWidth);
+    while (slicedCards.length < maxSlideNumber) {
+      slicedCardsLength--;
+      finalCards = [cards[slicedCardsLength], ...finalCards];
+    }
+
+    console.log("Done", slicedCards.length);
+  }
 
   return (
-    <div className="slider" ref={ref}>
+    <div className="slider">
       <h2>Popular Services</h2>
       <div className="container">
         <div className="arrows">

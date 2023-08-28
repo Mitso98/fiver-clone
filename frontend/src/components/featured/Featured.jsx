@@ -1,38 +1,46 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // Import motion and AnimatePresence
+
 import "./Featured.scss";
 
 const Featured = () => {
-  const imgRef = useRef(null);
-  const [imgIdx, setImgIdx] = useState(0);
+  const [currentImgIdx, setCurrentImgIdx] = useState(0);
+
+  const imagesPath = [
+    "./src/assets/img/people/christina-2x.jpg",
+    "./src/assets/img/people/jenny-2x.jpg",
+    "./src/assets/img/people/colin-2x.jpg",
+    "./src/assets/img/people/jordan-2x.jpg",
+    "./src/assets/img/people/scarlett-2x.jpg",
+  ];
 
   const imageHandler = () => {
-    const imagesPath = [
-      "./src/assets/img/people/christina-2x.jpg",
-      "./src/assets/img/people/colin-2x.jpg",
-      "./src/assets/img/people/jenny-2x.jpg",
-      "./src/assets/img/people/jordan-2x.jpg",
-    ];
-
-    const idx = imgIdx + 1 < imagesPath.length ? imgIdx + 1 : 0;
-
-    imgRef.current.src = imagesPath[idx];
-
-    setImgIdx(idx);
+    setCurrentImgIdx(currentImgIdx === imagesPath.length - 1 ? 0 : currentImgIdx + 1);
   };
 
   useEffect(() => {
-    setTimeout(imageHandler, 6000);
-  }, [imgIdx]);
+    const timeoutId = setTimeout(imageHandler, 6000);
+    return () => clearTimeout(timeoutId);
+  }, [currentImgIdx]);
 
   return (
     <div className="featured">
       <div className="people">
-        <img
-          ref={imgRef}
-          src="./src/assets/img/people/christina-2x.jpg"
-          alt=""
-        />
+        <AnimatePresence>
+          {imagesPath.map((path, idx) => (
+            <motion.img
+              key={idx}
+              src={path}
+              alt="Featured"
+              initial={{ opacity: idx === currentImgIdx ? 0 : 1 }}
+              animate={{ opacity: idx === currentImgIdx ? 1 : 0 }}
+              exit={{opacity: 0.4}}
+              transition={{  duration: 1.5 }}
+            />
+          ))}
+        </AnimatePresence>
       </div>
+
       <div className="container">
         <div className="header">
           <h1>
@@ -52,6 +60,7 @@ const Featured = () => {
               </svg>
             </div>
           </div>
+
           <div className="popular">
             <span>Popular:</span>
             <button>Web Design</button>

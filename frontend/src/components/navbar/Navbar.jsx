@@ -1,23 +1,47 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { delay, motion } from "framer-motion";
 
 import "./Navbar.scss";
 
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
-  const [dropDownMenu, setDropDownMenu] = useState(false);
-
+  const [dropDownMenuState, setDropDownMenuState] = useState(false);
+  const dropDownMenuElementRef = useRef(null);
   const { pathname } = useLocation();
 
   const isActive = () => {
     window.scrollY > 0 ? setActive(true) : setActive(false);
   };
 
+  const clickOutsideBusinessSolutionsHandler = (event) => {
+    if (
+      event.target.id !== "dropdown-menu-button" &&
+      event.target.id !== "dropdown-menu-item"
+    ) {
+      setDropDownMenuState(false);
+    }
+  };
+
+  const clickOutsideOptionsHandler = (event) => {
+    if (
+      event.target.id !== "options-menu-button" &&
+      event.target.id !== "options-menu-container" &&
+      event.target.id !== "options-menu-item"
+    ) {
+      setOpen(false);
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", isActive);
-
-    return () => window.removeEventListener("scroll", isActive);
+    window.addEventListener("click", clickOutsideBusinessSolutionsHandler);
+    window.addEventListener("click", clickOutsideOptionsHandler);
+    return () => {
+      window.removeEventListener("click", clickOutsideBusinessSolutionsHandler);
+      window.removeEventListener("scroll", isActive);
+    };
   }, []);
 
   const currentUser = {
@@ -25,7 +49,7 @@ const Navbar = () => {
     username: "John Doe",
     isSeller: true,
   };
-  console.log(dropDownMenu);
+
   return (
     <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
       <div className="container">
@@ -37,41 +61,68 @@ const Navbar = () => {
         </div>
         <div className="links">
           <span
+            id="dropdown-menu-button"
             className={
-              dropDownMenu
+              dropDownMenuState
                 ? "business-solutions drop-down-menu"
                 : "business-solutions up-menu"
             }
-            onClick={() => setDropDownMenu(!dropDownMenu)}
+            onClick={() => setDropDownMenuState(!dropDownMenuState)}
           >
             Business Solutions
             <svg width="16" height="16" viewBox="0 0 14 9">
               <path d="M.19 1.272.81.653a.375.375 0 0 1 .53 0L7 6.3 12.66.653a.375.375 0 0 1 .53 0l.62.62a.375.375 0 0 1 0 .53L7.264 8.346a.375.375 0 0 1-.53 0L.19 1.802a.375.375 0 0 1 0-.53Z"></path>
             </svg>
           </span>
-          {dropDownMenu && (
-            <div className="business-solutions-menu">
-              <span>
-                <div className="title">Fiverr Pro</div>
-                <div className="content">
+          {dropDownMenuState && (
+            <motion.div
+              className="business-solutions-menu"
+              ref={dropDownMenuElementRef}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              <motion.span
+                id="dropdown-menu-item"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="title" id="dropdown-menu-item">
+                  Fiverr Pro
+                </div>
+                <div className="content" id="dropdown-menu-item">
                   Top freelancers and professional business tools for any
                   project
                 </div>
-              </span>
-              <span>
-                <div className="title">Fiverr Certified</div>
-                <div className="content">
+              </motion.span>
+              <motion.span
+                id="dropdown-menu-item"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="title" id="dropdown-menu-item">
+                  Fiverr Certified
+                </div>
+                <div className="content" id="dropdown-menu-item">
                   Your own branded marketplace of certified experts
                 </div>
-              </span>
-              <span>
-                <div className="title">Fiverr Enterprise</div>
-                <div className="content">
+              </motion.span>
+              <motion.span
+                id="dropdown-menu-item"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <div className="title" id="dropdown-menu-item">
+                  Fiverr Enterprise
+                </div>
+                <div className="content" id="dropdown-menu-item">
                   SaaS to manage your freelance workforce and onboard additional
                   talent
                 </div>
-              </span>
-            </div>
+              </motion.span>
+            </motion.div>
           )}
           <span>Explore</span>
 
@@ -92,27 +143,60 @@ const Navbar = () => {
                 src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
                 alt=""
               />
-              <span>{currentUser?.username}</span>
+              <span id="options-menu-button">{currentUser?.username}</span>
               {open && (
-                <div className="options">
+                <div className="options" id="options-menu-container">
                   {currentUser?.isSeller && (
                     <>
-                      <Link className="link" to="/mygigs">
-                        Gigs
+                      <Link
+                        id="options-menu-item"
+                        className="link"
+                        to="/mygigs"
+                      >
+                        <motion.span
+                          initial={{ opacity: 0, x: -100 }}
+                          animate={{ opacity: 1, x: 0 }}
+                        >
+                          Gigs
+                        </motion.span>
                       </Link>
-                      <Link className="link" to="/add">
-                        Add New Gig
+                      <Link id="options-menu-item" className="link" to="/add">
+                        <motion.span
+                          initial={{ opacity: 0, x: -100 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 }}
+                        >
+                          Add New Gig
+                        </motion.span>
                       </Link>
                     </>
                   )}
-                  <Link className="link" to="/orders">
-                    Orders
+                  <Link id="options-menu-item" className="link" to="/orders">
+                    <motion.span
+                      initial={{ opacity: 0, x: -100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      Orders
+                    </motion.span>
                   </Link>
-                  <Link className="link" to="/messages">
-                    Messages
+                  <Link id="options-menu-item" className="link" to="/messages">
+                    <motion.span
+                      initial={{ opacity: 0, x: -100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      Messages
+                    </motion.span>
                   </Link>
-                  <Link className="link" to="/">
-                    Logout
+                  <Link id="options-menu-item" className="link" to="/">
+                    <motion.span
+                      initial={{ opacity: 0, x: -100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      Logout
+                    </motion.span>
                   </Link>
                 </div>
               )}
@@ -159,4 +243,5 @@ const Navbar = () => {
     </div>
   );
 };
+
 export default Navbar;
