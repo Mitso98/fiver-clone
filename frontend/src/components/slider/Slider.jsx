@@ -11,7 +11,7 @@ const Slider = () => {
   const [windowWidth, setWindowWidth] = useState(0);
   // prevent overflow
   const number = Math.floor(window.innerWidth / imgWidth);
-  const maxSlideNumber =
+  const maxSliderNumber =
     number * imgWidth > windowWidth * 0.9 ? number - 1 : number;
 
   useLayoutEffect(() => {
@@ -29,18 +29,23 @@ const Slider = () => {
   }, []);
 
   const nextIdxHandler = () => {
-    if (currentIDX + maxSlideNumber < cards.length) {
-      setCurrentIDX(currentIDX + maxSlideNumber);
+    if (currentIDX + maxSliderNumber < cards.length) {
+      setCurrentIDX(currentIDX + maxSliderNumber);
     } else {
       setCurrentIDX(0);
     }
   };
 
   const prevIdxHandler = () => {
-    if (currentIDX - maxSlideNumber >= 0) {
-      setCurrentIDX(currentIDX - maxSlideNumber);
+    if (currentIDX - maxSliderNumber >= 0) {
+      setCurrentIDX(currentIDX - maxSliderNumber);
+      console.log("if");
+    } else if (currentIDX === 0) {
+      console.log("elseif");
+      setCurrentIDX(cards.length - maxSliderNumber);
     } else {
-      setCurrentIDX(cards.length - maxSlideNumber);
+      console.log("else");
+      setCurrentIDX(0);
     }
   };
 
@@ -49,14 +54,14 @@ const Slider = () => {
     setImgWidth(width);
   };
 
-  const slicedCards = cards.slice(currentIDX, maxSlideNumber + currentIDX);
+  const slicedCards = cards.slice(currentIDX, maxSliderNumber + currentIDX);
   let finalCards = slicedCards;
 
-  if (slicedCards.length < maxSlideNumber && maxSlideNumber !== Infinity) {
+  if (slicedCards.length < maxSliderNumber && maxSliderNumber !== Infinity) {
     let currentIdxRef = currentIDX;
-    let slicedCardsLength = slicedCards.length ;
+    let slicedCardsLength = slicedCards.length;
 
-    while (slicedCardsLength < maxSlideNumber) {
+    while (slicedCardsLength < maxSliderNumber) {
       slicedCardsLength++;
       currentIdxRef--;
       finalCards = [cards[currentIdxRef], ...finalCards];
