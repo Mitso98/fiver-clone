@@ -1,5 +1,7 @@
 import CatCard from "../cat-card/CatCard";
 import { useLayoutEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 import { cards } from "../../data";
 import "./Slider.scss";
 
@@ -54,19 +56,20 @@ const Slider = () => {
     setImgWidth(width);
   };
 
-  const slicedCards = cards.slice(currentIDX, maxSliderNumber + currentIDX);
-  let finalCards = slicedCards;
+  const slicedCards = cards.slice(
+    currentIDX,
+    currentIDX + Math.min(maxSliderNumber, cards.length - currentIDX)
+  );
 
   if (slicedCards.length < maxSliderNumber && maxSliderNumber !== Infinity) {
-    let currentIdxRef = currentIDX;
-    let slicedCardsLength = slicedCards.length;
-
-    while (slicedCardsLength < maxSliderNumber) {
-      slicedCardsLength++;
-      currentIdxRef--;
-      finalCards = [cards[currentIdxRef], ...finalCards];
-    }
+    const cardsToAdd = Math.min(
+      maxSliderNumber - slicedCards.length,
+      currentIDX
+    );
+    const additionalCards = cards.slice(currentIDX - cardsToAdd, currentIDX);
+    slicedCards.unshift(...additionalCards);
   }
+
 
   return (
     <div className="slider">
@@ -81,7 +84,7 @@ const Slider = () => {
           </button>
         </div>
         <div className="slides">
-          {finalCards?.map((card, i) => (
+          {slicedCards?.map((card, i) => (
             <CatCard item={card} key={i} getImageWidth={getImageWidth} />
           ))}
         </div>

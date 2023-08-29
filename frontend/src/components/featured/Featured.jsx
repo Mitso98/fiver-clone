@@ -1,21 +1,47 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Import motion and AnimatePresence
-
+import { motion, AnimatePresence } from "framer-motion";
 import "./Featured.scss";
 
 const Featured = () => {
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
 
-  const imagesPath = [
-    "./src/assets/img/people/christina-2x.jpg",
-    "./src/assets/img/people/jenny-2x.jpg",
-    "./src/assets/img/people/colin-2x.jpg",
-    "./src/assets/img/people/jordan-2x.jpg",
-    "./src/assets/img/people/scarlett-2x.jpg",
+  const heros = [
+    {
+      img: "./src/assets/img/people/christina-2x.jpg",
+      icon: "./src/assets/img/people/christina-2x.png",
+      name: "Christina",
+      job: "Jewelry Shop Owner",
+    },
+    {
+      img: "./src/assets/img/people/jenny-2x.jpg",
+      icon: "./src/assets/img/people/jenny-2x.png",
+      name: "Jenny",
+      job: "Children's Voice Over",
+    },
+    {
+      img: "./src/assets/img/people/colin-2x.jpg",
+      icon: "./src/assets/img/people/colin-2x.png",
+      name: "Colin",
+      job: "Creative Director",
+    },
+    {
+      img: "./src/assets/img/people/jordan-2x.jpg",
+      icon: "./src/assets/img/people/jordan-2x.png",
+      name: "Jordan",
+      job: "Production Assistant",
+    },
+    {
+      img: "./src/assets/img/people/scarlett-2x.jpg",
+      icon: "./src/assets/img/people/scarlett-2x.png",
+      name: "Scarlet",
+      job: "Business Founder",
+    },
   ];
 
   const imageHandler = () => {
-    setCurrentImgIdx(currentImgIdx === imagesPath.length - 1 ? 0 : currentImgIdx + 1);
+    setCurrentImgIdx(
+      currentImgIdx === heros.length - 1 ? 0 : currentImgIdx + 1
+    );
   };
 
   useEffect(() => {
@@ -27,16 +53,40 @@ const Featured = () => {
     <div className="featured">
       <div className="people">
         <AnimatePresence>
-          {imagesPath.map((path, idx) => (
-            <motion.img
-              key={idx}
-              src={path}
-              alt="Featured"
-              initial={{ opacity: idx === currentImgIdx ? 0 : 1 }}
-              animate={{ opacity: idx === currentImgIdx ? 1 : 0 }}
-              exit={{opacity: 0.4}}
-              transition={{  duration: 1.5 }}
-            />
+          {heros.map((hero, idx) => (
+            <>
+              <motion.div
+                className="container"
+                key={idx + 1}
+                initial={{
+                  opacity: idx === currentImgIdx ? 0 : 1,
+                  x: idx === currentImgIdx ? "150vw" : 0,
+                  display: idx === currentImgIdx ? "none" : "flex",
+                }}
+                animate={{
+                  opacity: idx === currentImgIdx ? 1 : 0,
+                  x: idx === currentImgIdx ? 0 : "150vw",
+                  display: idx === currentImgIdx ? "flex" : "none",
+                }}
+                transition={{ duration: 1 }}
+              >
+                <div className="hero-icon">
+                  <img src={hero.icon} />
+                </div>
+                <div className="info">
+                  <p>{hero.name}</p>
+                  <p>{hero.job}</p>
+                </div>
+              </motion.div>
+              <motion.img
+                key={idx}
+                src={hero.img}
+                initial={{ opacity: idx === currentImgIdx ? 0 : 1 }}
+                animate={{ opacity: idx === currentImgIdx ? 1 : 0 }}
+                exit={{ opacity: 0.4 }}
+                transition={{ duration: 1.5 }}
+              />
+            </>
           ))}
         </AnimatePresence>
       </div>

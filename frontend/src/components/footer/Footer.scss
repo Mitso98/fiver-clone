@@ -1,0 +1,42 @@
+.footer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-top: 1px solid #bebfc0;
+
+  .container {
+    width: 95%;
+    margin: 0 95%;
+    display: grid;
+    grid-template-columns: 265px 265px 265px 265px 265px;
+    padding: 64px 32px 32px 32px;
+
+    .col {
+      color: #74767e;
+      padding: 0 16px;
+      border-bottom: 1px solid #bebfc0;
+
+      div {
+        padding-bottom: 16px;
+        p {
+          display: inline-block;
+          border-bottom: 1px solid transparent;
+          cursor: pointer;
+          
+          &:hover {
+            border-bottom: 1px solid black;
+          }
+        }
+      }
+
+      .title {
+        font-weight: bold;
+        color: black;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import "./Navbar.scss";
 
@@ -53,11 +53,32 @@ const Navbar = () => {
   return (
     <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
       <div className="container">
-        <div className="logo">
-          <Link to="/" className="link">
-            <span className="text">fiverr</span>
-          </Link>
-          <span className="dot">.</span>
+        <div className="left-side">
+          <div>
+            <Link to="/" className="link">
+              <span className="text">fiverr</span>
+            </Link>
+            <span className="dot">.</span>
+          </div>
+          {active && (
+            <div className="nav-search">
+              <input
+                type="text"
+                placeholder="What service are you looking for today?"
+              />
+              <div className="submit-button-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentFill"
+                >
+                  <path d="m15.89 14.653-3.793-3.794a.37.37 0 0 0-.266-.109h-.412A6.499 6.499 0 0 0 6.5 0C2.91 0 0 2.91 0 6.5a6.499 6.499 0 0 0 10.75 4.919v.412c0 .1.04.194.11.266l3.793 3.794a.375.375 0 0 0 .531 0l.707-.707a.375.375 0 0 0 0-.53ZM6.5 11.5c-2.763 0-5-2.238-5-5 0-2.763 2.237-5 5-5 2.762 0 5 2.237 5 5 0 2.762-2.238 5-5 5Z"></path>
+                </svg>
+              </div>
+            </div>
+          )}
         </div>
         <div className="links">
           <span
