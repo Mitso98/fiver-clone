@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import "./Featured.scss";
 
 const Featured = () => {
@@ -54,7 +55,7 @@ const Featured = () => {
       <div className="people">
         <AnimatePresence>
           {heros.map((hero, idx) => (
-            <>
+            <React.Fragment key={idx}>
               <motion.div
                 className="container"
                 key={idx + 1}
@@ -79,14 +80,13 @@ const Featured = () => {
                 </div>
               </motion.div>
               <motion.img
-                key={idx}
                 src={hero.img}
                 initial={{ opacity: idx === currentImgIdx ? 0 : 1 }}
                 animate={{ opacity: idx === currentImgIdx ? 1 : 0 }}
                 exit={{ opacity: 0.4 }}
                 transition={{ duration: 1.5 }}
               />
-            </>
+            </React.Fragment>
           ))}
         </AnimatePresence>
       </div>

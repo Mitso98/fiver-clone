@@ -228,36 +228,38 @@ const Navbar = () => {
 
       {(active || pathname !== "/") && (
         <>
-          <div className="menu">
-            <Link to="/" className="link">
-              <span>Graphics & Design</span>
-            </Link>
-            <Link to="/" className="link">
-              <span>Videos & Animation</span>
-            </Link>
-            <Link to="/" className="link">
-              {" "}
-              <span>All Services</span>
-            </Link>
-            <Link to="/" className="link">
-              {" "}
-              <span>Digital Marketing</span>
-            </Link>
-            <Link to="/" className="link">
-              {" "}
-              <span>Music & Audio</span>
-            </Link>
-            <Link to="/" className="link">
-              {" "}
-              <span>Programming & Tech</span>
-            </Link>
-            <Link to="/" className="link">
-              {" "}
-              <span>Business</span>
-            </Link>
-            <Link to="/" className="link">
-              <span>Lifestyle</span>
-            </Link>
+          <div className="menu-wrapper">
+            <div className="menu">
+              <Link to="/" className="link">
+                <span>Graphics & Design</span>
+              </Link>
+              <Link to="/" className="link">
+                <span>Videos & Animation</span>
+              </Link>
+              <Link to="/" className="link">
+                {" "}
+                <span>All Services</span>
+              </Link>
+              <Link to="/" className="link">
+                {" "}
+                <span>Digital Marketing</span>
+              </Link>
+              <Link to="/" className="link">
+                {" "}
+                <span>Music & Audio</span>
+              </Link>
+              <Link to="/" className="link">
+                {" "}
+                <span>Programming & Tech</span>
+              </Link>
+              <Link to="/" className="link">
+                {" "}
+                <span>Business</span>
+              </Link>
+              <Link to="/" className="link">
+                <span>Lifestyle</span>
+              </Link>
+            </div>
           </div>
         </>
       )}

@@ -233,30 +233,34 @@
     }
   }
 
-  .menu {
+  .menu-wrapper {
     width: 100%;
     box-sizing: border-box;
-    padding: 0 5vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     font-weight: 300;
     color: gray;
-    font-family: "Montserrat", sans-serif;
     border-bottom: 1px solid gray;
     border-top: 1px solid gray;
     background-color: white;
 
-    .link {
-      span {
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-        height: 40px;
-        border-bottom: 4px solid transparent;
-        transition: border-color 0.2s ease; /* Transition the border color */
+    .menu {
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
 
-        &:hover {
-          border-bottom-color: #1dbf73;
+      .link {
+        span {
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          height: 40px;
+          border-bottom: 4px solid transparent;
+          transition: border-color 0.2s ease; /* Transition the border color */
+
+          &:hover {
+            border-bottom-color: #1dbf73;
+          }
         }
       }
     }

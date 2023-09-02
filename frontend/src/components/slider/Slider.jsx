@@ -1,27 +1,31 @@
-import CatCard from "../cat-card/CatCard";
-import { useLayoutEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { cards } from "../../data";
+import CatCard from "../cat-card/CatCard";
 import "./Slider.scss";
 
-const Slider = () => {
-  // const ref = useRef(null);
+const WIDTH_PERCENT = 0.9;
+const GAP = 40;
 
+const Slider = () => {
+  const imgWidthRef = useRef(null);
   const [imgWidth, setImgWidth] = useState(0);
   const [currentIDX, setCurrentIDX] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
-  // prevent overflow
+
   const number = Math.floor(window.innerWidth / imgWidth);
   const maxSliderNumber =
-    number * imgWidth > windowWidth * 0.9 ? number - 1 : number;
+    number * imgWidth > windowWidth * WIDTH_PERCENT ? number - 1 : number;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    setImgWidth(imgWidthRef.current?.offsetWidth + GAP);
     setWindowWidth(window.innerWidth);
-
-    function handleWindowResize() {
+    console.log("useLayoutEffect");
+    const handleWindowResize = () => {
+      console.log("handleWindowResize");
+      setImgWidth(imgWidthRef.current?.offsetWidth + GAP);
       setWindowWidth(window.innerWidth);
-    }
+    };
 
     window.addEventListener("resize", handleWindowResize);
 
@@ -31,29 +35,17 @@ const Slider = () => {
   }, []);
 
   const nextIdxHandler = () => {
-    if (currentIDX + maxSliderNumber < cards.length) {
-      setCurrentIDX(currentIDX + maxSliderNumber);
-    } else {
-      setCurrentIDX(0);
-    }
+    setCurrentIDX((prevIdx) =>
+      prevIdx + maxSliderNumber < cards.length ? prevIdx + maxSliderNumber : 0
+    );
   };
 
   const prevIdxHandler = () => {
-    if (currentIDX - maxSliderNumber >= 0) {
-      setCurrentIDX(currentIDX - maxSliderNumber);
-      console.log("if");
-    } else if (currentIDX === 0) {
-      console.log("elseif");
-      setCurrentIDX(cards.length - maxSliderNumber);
-    } else {
-      console.log("else");
-      setCurrentIDX(0);
-    }
-  };
-
-  // propagate up image width
-  const getImageWidth = (width) => {
-    setImgWidth(width);
+    setCurrentIDX((prevIdx) =>
+      prevIdx - maxSliderNumber >= 0
+        ? prevIdx - maxSliderNumber
+        : cards.length - maxSliderNumber
+    );
   };
 
   const slicedCards = cards.slice(
@@ -61,15 +53,24 @@ const Slider = () => {
     currentIDX + Math.min(maxSliderNumber, cards.length - currentIDX)
   );
 
+  let cardsToAdd = 0;
   if (slicedCards.length < maxSliderNumber && maxSliderNumber !== Infinity) {
-    const cardsToAdd = Math.min(
-      maxSliderNumber - slicedCards.length,
-      currentIDX
-    );
+    cardsToAdd = Math.min(maxSliderNumber - slicedCards.length, currentIDX);
     const additionalCards = cards.slice(currentIDX - cardsToAdd, currentIDX);
     slicedCards.unshift(...additionalCards);
   }
 
+  console.log(cardsToAdd, currentIDX, imgWidth);
+
+  const state = (i) => {
+    if (
+      i >= currentIDX - cardsToAdd &&
+      i < currentIDX + Math.min(maxSliderNumber, cards.length - currentIDX)
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div className="slider">
@@ -83,9 +84,25 @@ const Slider = () => {
             Next
           </button>
         </div>
-        <div className="slides">
-          {slicedCards?.map((card, i) => (
-            <CatCard item={card} key={i} getImageWidth={getImageWidth} />
+        <div className="slides" style={{ gap: GAP }}>
+          {cards.map((card, i) => (
+            <AnimatePresence key={i} mode="wait">
+              <motion.div
+                className="wrapper"
+                ref={i === 0 && imgWidthRef ? imgWidthRef : null}
+                initial={{
+                  x: state(i) ? -200 : 0,
+                }}
+                animate={{
+                  x: state(i) ? 0 : -200,
+                }}
+                style={{
+                  display: state(i) ? "block" : "none",
+                }}
+              >
+                <CatCard item={card} />
+              </motion.div>
+            </AnimatePresence>
           ))}
         </div>
       </div>

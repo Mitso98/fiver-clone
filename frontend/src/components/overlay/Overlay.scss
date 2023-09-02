@@ -1,0 +1,52 @@
+.overlay {
+  display: flex;
+  position: absolute;
+  top: -50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba($color: black, $alpha: 0.6);
+  z-index: 1000;
+
+  .overlay-container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    color: black;
+    padding: 20px 0;
+    border-radius: 4px;
+    transform: translate(-50%, -50%);
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+
+      button {
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+
+      .option {
+        cursor: pointer;
+        padding: 10px 40px;
+        &:hover {
+          background-color: lightgray;
+        }
+      }
+    }
+  }
+}

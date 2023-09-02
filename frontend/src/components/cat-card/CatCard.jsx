@@ -1,26 +1,11 @@
 import { Link } from "react-router-dom";
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useEffect } from "react";
 import "./CatCard.scss";
 
-const CatCard = ({ item, getImageWidth }) => {
-  const ref = useRef(null);
-
-  const getImageWidthHandler = () => {
-    getImageWidth(ref.current.offsetWidth);
-  };
-
-  useLayoutEffect(() => {
-    getImageWidthHandler();
-
-    window.addEventListener("resize", getImageWidthHandler);
-
-    return () => {
-      window.removeEventListener("resize", getImageWidthHandler);
-    };
-  });
+const CatCard = ({ item }) => {
   return (
     <Link to="/gigs?cat=design">
-      <div className="cat-card" ref={ref}>
+      <div className="cat-card">
         <img src={item.img} alt="" />
         <span className="desc">{item.desc}</span>
         <span className="title">{item.title}</span>

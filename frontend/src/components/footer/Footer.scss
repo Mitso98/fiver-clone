@@ -1,20 +1,24 @@
 .footer {
+  position: relative;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  flex-direction: column;
   border-top: 1px solid #bebfc0;
+  align-items: center;
+  padding-bottom: 32px;
 
   .container {
     width: 95%;
-    margin: 0 95%;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 265px 265px 265px 265px 265px;
-    padding: 64px 32px 32px 32px;
+    grid-template-columns: repeat(5, 265px);
+    justify-content: space-between;
+    padding-top: 64px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #bebfc0;
 
     .col {
       color: #74767e;
       padding: 0 16px;
-      border-bottom: 1px solid #bebfc0;
 
       div {
         padding-bottom: 16px;
@@ -22,7 +26,7 @@
           display: inline-block;
           border-bottom: 1px solid transparent;
           cursor: pointer;
-          
+
           &:hover {
             border-bottom: 1px solid black;
           }
@@ -36,6 +40,122 @@
 
       p {
         font-size: 18px;
+      }
+    }
+  }
+
+  .down-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    color: #62646a;
+    padding-top: 32px;
+
+    .left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .title {
+        font-weight: bold;
+        font-size: 10px;
+
+        .word {
+          font-size: 36px;
+        }
+      }
+
+      .statement {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 24px;
+      }
+    }
+
+    .right {
+      width: 650px;
+      display: flex;
+      justify-content: space-between;
+      color: #747474;
+
+      .icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .social-media {
+          display: flex;
+          gap: 25px;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            cursor: pointer;
+            fill: #74767e;
+            padding: 8px;
+            border-radius: 50%;
+
+            &:hover {
+              background-color: #bebfc0;
+            }
+          }
+        }
+      }
+
+      .buttons {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        justify-content: center;
+
+        button {
+          padding: 10px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          border: none;
+          background-color: transparent;
+          color: #747474;
+          font-weight: bold;
+          cursor: pointer;
+          border-radius: 50px;
+
+          &:hover {
+            background-color: #bebfc0;
+            color: rgba(0, 0, 0, 0.8);
+          }
+
+          span {
+            svg {
+              fill: #74767e;
+            }
+          }
+        }
+
+        .circle {
+          &:hover {
+            background-color: transparent;
+
+            fill: black;
+
+            span {
+              svg {
+                circle {
+                  fill: #bebfc0;
+                  stroke: none;
+                }
+
+                path {
+                  fill: rgba(0, 0, 0, 0.8);
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

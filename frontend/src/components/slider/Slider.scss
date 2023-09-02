@@ -48,9 +48,11 @@
     }
 
     .slides {
-  
       display: flex;
-      gap: 35px;
+
+      .wrapper{
+        width: 100%;
+      }
     }
   }
 }
